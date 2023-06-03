@@ -179,149 +179,153 @@
       </div>
   
       <!-- Javascript -->
-      <script>
-        // Declaratie
-        let submitKnop = document.querySelector(".btn-primary");
-        let veld1 = document.getElementsByClassName('checkEmptyFieldList')
-        let veld2 = document.getElementsByClassName('checkPaymentMethod')
-        let melding = (`Het veld ${veld1} is vereist.`);
-        let input_email = document.querySelector("#email");
-        let input_wachtwoord = document.querySelector("#wachtwoord");
-        let input_herhaalWachtwoord = document.querySelector("#herhaalWachtwoord");
-        let input_postcode = document.querySelector("#postcode");
-        let input_algemeneVoorwaarden = document.querySelector("#algemeneVoorwaarden");
-        let input_bankingApp = document.querySelector("#chkBankingApp");
-        let input_overschrijving = document.querySelector("#chkOverschrijving");
-        let input_visacard = document.querySelector("#chkVisaCard");
-        let input_paypal = document.querySelector("#chkPaypal");
-  
-        let errors = [];
-        let betalingswijze = [];
-        
-        // FUNCTIES
-        
-        function checkEmptyField(veld1, melding) {
-          for (let i = 0; i < veld1.length; i++ ) {
-          if (veld1[i].value === '') {
-            let fieldId = veld1[i].id;
-            let errorMelding = `Het veld ${fieldId} is vereist.`;
-            errors.push(errorMelding);
-            }
-          }
-        }
-  
-        function validateEmail() {
-        let email = input_email.value;
-        let emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
-        let isGeldig = emailRegex.test(email);
-        if (!isGeldig) {
-          errors.push("E-mailadres is niet correct.");
-          }
-        return isGeldig;
-        }
-  
-        
-        function algemeneVoorwaardenVerplicht() {
-          let algemenevoorwaarden = input_algemeneVoorwaarden.checked;
-          if (algemenevoorwaarden == false) {
-            errors.push('Je moet de algemente voorwaarden accpeteren.')
-          }
-        }
-  
-        function checkPC() {
-          let postcode = input_postcode.value;
-          if (postcode === '') {
-            errors.push('Je hebt geen geldige postcode ingevuld')
-          } else if (postcode < 1000 || postcode > 9999) {
-            errors.push('De waarde van de postcode moet tussen 1000 en 9999 liggen!')
-          }
-        }
-  
-        function wachtwoordControle() {
-          let wachtwoord1 = input_wachtwoord.value;
-          let wachtwoord2 = input_herhaalWachtwoord.value
-          if (wachtwoord1 === '') {
-            errors.push('Het veld wachtwoord is vereist.')
-            } if (wachtwoord2 === '') {
-            errors.push('Het veld herhaal wachtwoord is vereist.')
-            } else if (wachtwoord1.length < 8 || wachtwoord2.length < 8) {
-            document.querySelector(".wachtwoordMinKarakters").innerText = "Je wachtwoord moet minstens 8 tekens lang zijn"
-            errors.push('Je wachtwoord moet minstens 8 tekens lang zijn')
-          } else if (wachtwoord1 !== wachtwoord2) {
-            errors.push('Je wachtwoorden komen niet overeen!')
-          }
-        }
-  
-       
-        function validatePayment(veld2) {
-          for (let i = 0; i < veld2.length; i++ ) {
-          if (veld2[i].checked === true ) {
-            let fieldId2 = veld2[i].id;
-            let paymentMelding = `Je betalingswijze is ${fieldId2}.`;
-            betalingswijze.push(paymentMelding);
-            }
-          }
-        }
-  
-        
-        errors.forEach(toonFoutmeldingen)
-        function toonFoutmeldingen() {
-            document.querySelector('#foutmeldingen').innerText += errors.join('\n');
-        }
-  
-        betalingswijze.forEach(toonBetalingswijze)
-        function toonBetalingswijze() {
-            document.querySelector('#betalingwijze').innerText = betalingswijze;
-        }
-  
-        function ErrorBanner() {
-          let errormeldingen = document.querySelector(".alert-danger");
-          if (errors.length !== 0) { errormeldingen.style.display = "block"; }
-          else { errormeldingen.style.display = "none"; }
-        }
-  
-        
-        function GoedGedaanBanner() {
-        let goedgedaan = document.querySelector(".alert-success");
-        if (errors.length === 0) { goedgedaan.style.display = "block"; }
-        else { goedgedaan.style.display = "none"; }
-        }
-  
-        
-        function BetalingswijzeBanner() {
-        let betalingswijze = document.querySelector(".alert-info");
-        if (errors.length === 0) { betalingswijze.style.display = "block"; }
-        else { betalingswijze.style.display = "none"; }
-        }
-  
-        
-        function maakLijstenLeeg() {
-           errors = [];
-           document.querySelector('#foutmeldingen').innerHTML = errors;
-           betalingswijze = [''];
-           document.querySelector('#betalingwijze').innerText = betalingswijze;
-           document.querySelector(".wachtwoordMinKarakters").innerText = "";
-        }
-  
-        
-        function validateForm() {
-            maakLijstenLeeg(),
-            checkEmptyField(veld1, melding),
-            validateEmail(),
-            wachtwoordControle(),
-            algemeneVoorwaardenVerplicht(),
-            checkPC(),
-            validatePayment(veld2),
-            toonBetalingswijze(),
-            toonFoutmeldingen()
-            ErrorBanner(),
-            GoedGedaanBanner(),
-            BetalingswijzeBanner()};
-        
-        
-        submitKnop.addEventListener('click', () => {
-            validateForm()});
-        </script>
+<script>
+  // Declaratie
+  let submitKnop = document.querySelector(".btn-primary");
+  let veld1 = document.getElementsByClassName('checkEmptyFieldList');
+  let veld2 = document.getElementsByClassName('checkPaymentMethod');
+  let melding = `Het veld ${veld1} is vereist.`;
+  let input_email = document.querySelector("#email");
+  let input_wachtwoord = document.querySelector("#wachtwoord");
+  let input_herhaalWachtwoord = document.querySelector("#herhaalWachtwoord");
+  let input_postcode = document.querySelector("#postcode");
+  let input_algemeneVoorwaarden = document.querySelector("#algemeneVoorwaarden");
+  let input_bankingApp = document.querySelector("#chkBankingApp");
+  let input_overschrijving = document.querySelector("#chkOverschrijving");
+  let input_visacard = document.querySelector("#chkVisaCard");
+  let input_paypal = document.querySelector("#chkPaypal");
+
+  let errors = [];
+  let betalingswijze = [];
+
+  // FUNCTIES
+
+  function checkEmptyField(veld, melding) {
+    for (let i = 0; i < veld.length; i++) {
+      if (veld[i].value === '') {
+        let fieldId = veld[i].id;
+        let errorMelding = `Het veld ${fieldId} is vereist.`;
+        errors.push(errorMelding);
+      }
+    }
+  }
+
+  function validateEmail() {
+    let email = input_email.value;
+    let emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
+    let isGeldig = emailRegex.test(email);
+    if (!isGeldig) {
+      errors.push("E-mailadres is niet correct.");
+    }
+    return isGeldig;
+  }
+
+
+  function algemeneVoorwaardenVerplicht() {
+    let algemenevoorwaarden = input_algemeneVoorwaarden.checked;
+    if (!algemenevoorwaarden) {
+      errors.push('Je moet de algemene voorwaarden accepteren.');
+    }
+  }
+
+  function checkPC() {
+    let postcode = input_postcode.value;
+    if (postcode === '') {
+      errors.push('Je hebt geen geldige postcode ingevuld');
+    } else if (postcode < 1000 || postcode > 9999) {
+      errors.push('De waarde van de postcode moet tussen 1000 en 9999 liggen!');
+    }
+  }
+
+  function wachtwoordControle() {
+    let wachtwoord1 = input_wachtwoord.value;
+    let wachtwoord2 = input_herhaalWachtwoord.value;
+    if (wachtwoord1 === '') {
+      errors.push('Het veld wachtwoord is vereist.');
+    }
+    if (wachtwoord2 === '') {
+      errors.push('Het veld herhaal wachtwoord is vereist.');
+    }
+    if (wachtwoord1.length < 8 || wachtwoord2.length < 8) {
+      document.querySelector(".wachtwoordMinKarakters").innerText = "Je wachtwoord moet minstens 8 tekens lang zijn";
+      errors.push('Je wachtwoord moet minstens 8 tekens lang zijn');
+    }
+    if (wachtwoord1 !== wachtwoord2) {
+      errors.push('Je wachtwoorden komen niet overeen!');
+    }
+  }
+
+  function validatePayment(veld) {
+    for (let i = 0; i < veld.length; i++) {
+      if (veld[i].checked === true) {
+        let fieldId2 = veld[i].id;
+        let paymentMelding = `Je betalingswijze is ${fieldId2}.`;
+        betalingswijze.push(paymentMelding);
+      }
+    }
+  }
+
+  function toonFoutmeldingen() {
+    document.querySelector('#foutmeldingen').innerText = errors.join('\n');
+  }
+
+  function toonBetalingswijze() {
+    document.querySelector('#betalingwijze').innerText = betalingswijze.join('\n');
+  }
+
+  function ErrorBanner() {
+    let errormeldingen = document.querySelector(".alert-danger");
+    if (errors.length !== 0) {
+      errormeldingen.style.display = "block";
+    } else {
+      errormeldingen.style.display = "none";
+    }
+  }
+
+  function GoedGedaanBanner() {
+    let goedgedaan = document.querySelector(".alert-success");
+    if (errors.length === 0) {
+      goedgedaan.style.display = "block";
+    } else {
+      goedgedaan.style.display = "none";
+    }
+  }
+
+  function BetalingswijzeBanner() {
+    let betalingswijze = document.querySelector(".alert-info");
+    if (errors.length === 0) {
+      betalingswijze.style.display = "block";
+    } else {
+      betalingswijze.style.display = "none";
+    }
+  }
+
+  function maakLijstenLeeg() {
+    errors = [];
+    document.querySelector('#foutmeldingen').innerText = '';
+    betalingswijze = [];
+    document.querySelector('#betalingwijze').innerText = '';
+    document.querySelector(".wachtwoordMinKarakters").innerText = "";
+  }
+
+  function validateForm() {
+    maakLijstenLeeg();
+    checkEmptyField(veld1, melding);
+    validateEmail();
+    wachtwoordControle();
+    algemeneVoorwaardenVerplicht();
+    checkPC();
+    validatePayment(veld2);
+    toonBetalingswijze();
+    toonFoutmeldingen();
+    ErrorBanner();
+    GoedGedaanBanner();
+    BetalingswijzeBanner();
+  }
+
+  submitKnop.addEventListener('click', validateForm);
+</script>
+
       <!-- Bootstrap -->
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous">
